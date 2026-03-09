@@ -1,0 +1,144 @@
+/* ===== CardioViz — Tailwind companion CSS ===== */
+/* Theme variables + Dash component overrides only.
+   Layout and visual styling handled by Tailwind utility classes. */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+/* ---- CSS Custom Properties (used by Plotly theme + Dash overrides) ---- */
+:root {
+    --neon:       #00d4ff;
+    --neon-glow:  rgba(0,212,255,0.35);
+    --neon-soft:  rgba(0,212,255,0.12);
+    --neon-brd:   rgba(0,212,255,0.25);
+    --bg-body:    #060b18;
+    --bg-card:    #0f1729;
+    --bg-sidebar: #0a1020;
+    --bg-input:   #111b30;
+    --text-pri:   #e0f2ff;
+    --text-sec:   #7aa2c9;
+    --danger:     #ff3366;
+    --success:    #00ff88;
+    --warning:    #ffaa00;
+    --border:     rgba(0,212,255,0.15);
+}
+
+body.light-theme {
+    --neon:       #0088ff;
+    --neon-glow:  rgba(0,136,255,0.20);
+    --neon-soft:  rgba(0,136,255,0.08);
+    --neon-brd:   rgba(0,136,255,0.20);
+    --bg-body:    #f0f5ff;
+    --bg-card:    #ffffff;
+    --bg-sidebar: #f8faff;
+    --bg-input:   #eef3ff;
+    --text-pri:   #0a1628;
+    --text-sec:   #4a6380;
+    --danger:     #e11d48;
+    --success:    #059669;
+    --warning:    #d97706;
+    --border:     rgba(0,136,255,0.15);
+}
+
+/* ---- Light theme surfaces for Tailwind bg overrides ---- */
+body.light-theme .bg-body    { background-color: #f0f5ff !important; }
+body.light-theme .bg-sidebar { background-color: #f8faff !important; }
+body.light-theme .bg-card    { background-color: #ffffff !important; }
+body.light-theme .bg-inputbg { background-color: #eef3ff !important; }
+body.light-theme .text-txtpri { color: #0a1628 !important; }
+body.light-theme .text-txtsec { color: #4a6380 !important; }
+body.light-theme .text-neon   { color: #0088ff !important; }
+body.light-theme .text-white  { color: #0a1628 !important; }
+body.light-theme .border-neonbrd\/30 { border-color: rgba(0,136,255,0.20) !important; }
+
+/* ---- Reset ---- */
+*, *::before, *::after { box-sizing: border-box; }
+body {
+    font-family: 'Inter', system-ui, sans-serif;
+    background: var(--bg-body);
+    color: var(--text-pri);
+    transition: background 0.3s ease, color 0.3s ease;
+}
+
+/* ---- Scrollbar ---- */
+::-webkit-scrollbar { width: 5px; height: 5px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: rgba(0,212,255,0.25); border-radius: 3px; }
+
+/* ---- Dash Dropdown overrides ---- */
+.dash-dropdown .Select-control {
+    background: var(--bg-input) !important;
+    border: 1px solid var(--border) !important;
+    border-radius: 8px !important;
+    color: var(--text-pri) !important;
+    min-height: 36px !important;
+    transition: border-color 0.2s;
+}
+.dash-dropdown .Select-control:hover {
+    border-color: var(--neon-brd) !important;
+}
+.dash-dropdown .Select-value-label {
+    color: var(--text-pri) !important;
+    font-size: 13px !important;
+}
+.dash-dropdown .Select-placeholder {
+    color: var(--text-sec) !important;
+    font-size: 13px !important;
+}
+.dash-dropdown .Select-menu-outer {
+    background: var(--bg-card) !important;
+    border: 1px solid var(--border) !important;
+    border-radius: 8px !important;
+    margin-top: 4px !important;
+}
+.dash-dropdown .Select-option {
+    background: var(--bg-card) !important;
+    color: var(--text-pri) !important;
+    font-size: 13px !important;
+}
+.dash-dropdown .Select-option.is-focused {
+    background: var(--neon-soft) !important;
+    color: var(--neon) !important;
+}
+.dash-dropdown .Select-arrow-zone .Select-arrow {
+    border-top-color: var(--text-sec) !important;
+}
+
+/* ---- Range Slider ---- */
+.rc-slider-track { background: var(--neon) !important; }
+.rc-slider-handle {
+    border-color: var(--neon) !important;
+    background: var(--neon) !important;
+    box-shadow: 0 0 6px var(--neon-glow) !important;
+    width: 14px !important; height: 14px !important;
+    margin-top: -5px !important;
+}
+.rc-slider-rail { background: var(--border) !important; }
+.rc-slider-mark-text { color: var(--text-sec) !important; font-size: 11px !important; }
+
+/* ---- Plotly modebar ---- */
+.js-plotly-plot .plotly .modebar { right: 8px !important; }
+.js-plotly-plot .plotly .modebar-btn path { fill: var(--text-sec) !important; }
+.js-plotly-plot .plotly .modebar-btn:hover path { fill: var(--neon) !important; }
+
+/* ---- Active nav link highlight ---- */
+.nav-link.active {
+    background: var(--neon-soft) !important;
+    color: var(--neon) !important;
+    font-weight: 600;
+    box-shadow: inset 3px 0 0 var(--neon);
+    border-radius: 0 8px 8px 0;
+}
+
+/* ---- Table ---- */
+table { color: var(--text-pri); }
+table th { color: var(--text-sec) !important; font-weight: 600; }
+table td { padding: 8px 10px; border-bottom: 1px solid var(--border); }
+
+/* ---- Loading ---- */
+._dash-loading { margin: auto; }
+
+/* ---- Responsive ---- */
+@media (max-width: 960px) {
+    .w-\[280px\]   { width: 220px !important; min-width: 220px !important; }
+    .ml-\[280px\]  { margin-left: 220px !important; }
+}
