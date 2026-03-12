@@ -16,6 +16,7 @@ from components.sidebar import create_sidebar
 # ---------------------------------------------------------------------------
 DATA_PATH = os.path.join(os.path.dirname(__file__), "heart.csv")
 df = pd.read_csv(DATA_PATH)
+df.columns = df.columns.str.strip()          # CSV has leading spaces in some column names
 
 # ---------------------------------------------------------------------------
 # Tailwind Play CDN — loaded BEFORE the app renders

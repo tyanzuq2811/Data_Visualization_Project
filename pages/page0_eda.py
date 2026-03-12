@@ -20,6 +20,7 @@ I = lambda name, sz=20, cls="": DashIconify(icon=name, width=sz, className=cls)
 
 # ── Static dataset info (loaded once) ──
 _DF = pd.read_csv("heart.csv")
+_DF.columns = _DF.columns.str.strip()
 
 VARIABLE_INFO = [
     ("age",      "Tuổi",                "int64",    "Tuổi bệnh nhân (năm)"),
