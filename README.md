@@ -8,7 +8,9 @@
 
 **Dataset:** Heart Disease Dataset — Cleveland Clinic Foundation (UCI Machine Learning Repository)
 - **Nguồn:** [Kaggle — Heart Disease Dataset](https://www.kaggle.com/datasets/johnsmith88/heart-disease-dataset)
-- **Kích thước:** 1.025 dòng × 14 cột
+- **Kích thước dữ liệu gốc (EDA):** 1.025 dòng × 14 cột
+- **Kích thước dữ liệu phân tích (các trang sau EDA):** 302 dòng unique × 14 cột
+- **Tiền xử lý:** chuẩn hóa tên cột (`strip`) và loại bỏ dòng trùng lặp (`drop_duplicates`) cho các trang phân tích chính
 - **Biến mục tiêu:** `target` (1 = Có bệnh tim, 0 = Không bệnh tim)
 
 **Mục tiêu phân tích:**

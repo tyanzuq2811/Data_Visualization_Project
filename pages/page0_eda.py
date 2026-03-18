@@ -18,10 +18,6 @@ dash.register_page(
 
 I = lambda name, sz=20, cls="": DashIconify(icon=name, width=sz, className=cls)
 
-# ── Static dataset info (loaded once) ──
-_DF = pd.read_csv("heart.csv")
-_DF.columns = _DF.columns.str.strip()
-
 VARIABLE_INFO = [
     ("age",      "Tuổi",                "int64",    "Tuổi bệnh nhân (năm)"),
     ("sex",      "Giới tính",           "int64",    "0 = Nữ, 1 = Nam"),
@@ -92,6 +88,12 @@ layout = html.Div([
                            href="https://www.kaggle.com/datasets/johnsmith88/heart-disease-dataset",
                            className="text-neon underline", target="_blank"),
                 ]),
+                html.P([
+                    html.Strong("Ghi chú xử lý dữ liệu: ", className="text-txtpri"),
+                    "Trang EDA sử dụng dữ liệu gốc (1025 dòng, có trùng lặp). "
+                    "Các trang phân tích tiếp theo (KPI, Tuổi, Lâm sàng, Tương quan, Cảnh báo) "
+                    "sử dụng dữ liệu đã loại trùng: 302 dòng unique."
+                ], className="text-warning"),
             ]),
         ],
     ),
@@ -222,7 +224,7 @@ layout = html.Div([
                 I("lucide:sheet", 18, "text-neon"),
                 html.H3("Bảng Dữ Liệu Gốc (Data Table)", className="text-sm font-semibold text-txtpri"),
             ]),
-            html.P("Bảng hiển thị 20 dòng đầu tiên (có thể sắp xếp, lọc). Dữ liệu phản ứng theo bộ lọc Sidebar.",
+                 html.P("Bảng hiển thị 20 dòng đầu tiên (có thể sắp xếp, lọc) từ dữ liệu gốc 1025 dòng.",
                    className="text-xs text-txtsec mb-4"),
             html.Div(id="eda-datatable-wrapper"),
         ],
@@ -257,7 +259,7 @@ layout = html.Div([
      Output("eda-target-dist", "figure"),
      Output("eda-datatable-wrapper", "children"),
      Output("eda-insights", "children")],
-    [Input("filtered-data-store", "data"),
+    [Input("raw-data-store", "data"),
      Input("theme-store", "data")],
 )
 def update_eda(json_data, theme):
@@ -553,7 +555,7 @@ def update_eda(json_data, theme):
         insights.append(html.Li([
             html.Strong("Dữ liệu trùng lặp: "),
             f"Phát hiện {n_duplicates} dòng trùng ({n_duplicates/n_rows*100:.1f}%). "
-            "Có thể do dataset ghép từ nhiều nguồn — cần cân nhắc loại bỏ."
+            "Trong dashboard này, các trang sau EDA sử dụng bản đã loại trùng còn 302 dòng unique."
         ]))
     else:
         insights.append(html.Li([

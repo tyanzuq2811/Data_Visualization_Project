@@ -15,8 +15,9 @@ from components.sidebar import create_sidebar
 # Data
 # ---------------------------------------------------------------------------
 DATA_PATH = os.path.join(os.path.dirname(__file__), "heart.csv")
-df = pd.read_csv(DATA_PATH)
-df.columns = df.columns.str.strip()          # CSV has leading spaces in some column names
+df_raw = pd.read_csv(DATA_PATH)
+df_raw.columns = df_raw.columns.str.strip()          # CSV has leading spaces in some column names
+df = df_raw.drop_duplicates().reset_index(drop=True)  # Pages 1-5 use unique patient rows only (302 records)
 
 # ---------------------------------------------------------------------------
 # Tailwind Play CDN — loaded BEFORE the app renders
@@ -99,6 +100,7 @@ app.layout = html.Div(
     className="flex min-h-screen bg-body text-txtpri font-sans",
     children=[
         dcc.Store(id="filtered-data-store", storage_type="memory"),
+        dcc.Store(id="raw-data-store", storage_type="memory", data=df_raw.to_json(date_format="iso", orient="split")),
         dcc.Store(id="theme-store", storage_type="local", data="dark"),
         html.Div(id="theme-dummy", style={"display": "none"}),
         create_sidebar(),

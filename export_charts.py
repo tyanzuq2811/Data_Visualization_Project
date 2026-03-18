@@ -16,6 +16,7 @@ os.makedirs(OUT, exist_ok=True)
 
 df = pd.read_csv(os.path.join(BASE, "heart.csv"))
 df.columns = df.columns.str.strip()
+df = df.drop_duplicates().reset_index(drop=True)
 
 # ── Slide-friendly theme (nền trắng, chữ đậm) ──
 T = {
